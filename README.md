@@ -4,6 +4,20 @@
 
 Agent Evaluation turns agent runs into evidence. It brings datasets, evaluators, metrics, judges, runners, traces, reports, and dashboards into one workflow so changes can be compared instead of merely demonstrated.
 
+## First implemented contract
+
+[Agent Trace Schema v0.1.0](traces/schema/v0.1.0/trace.schema.json) defines the
+event stream emitted by the first executable
+[Agent Harness vehicle demo](https://github.com/tinaxiaxiao/agent-harness/tree/main/examples/in_car_restaurant_agent).
+It covers runtime lifecycle, input, planning, state changes, tool calls,
+confirmation gates, side effects, outputs, completion, and privacy labels.
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+The included validator has no third-party runtime dependencies.
+
 ## Why this repository exists
 
 Agent systems fail in ways that single-answer benchmarks often miss: they choose the wrong tool, lose context, repeat work, stop too early, or reach the right answer through an unsafe path. Evaluation should therefore inspect both outcomes and trajectories.
@@ -40,7 +54,8 @@ agent-evaluation/
 
 ## Roadmap
 
-- [ ] Define a versioned task and trace schema
+- [x] Define a versioned trace schema
+- [ ] Define a versioned task schema
 - [ ] Ship deterministic evaluators and a local runner
 - [ ] Add judge rubrics with calibration examples
 - [ ] Generate a first regression report
