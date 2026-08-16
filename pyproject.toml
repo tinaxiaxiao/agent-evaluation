@@ -1,0 +1,8 @@
+[project]
+name = "agent-evaluation"
+version = "0.1.0"
+description = "Trace contracts and evaluation primitives for AI agents"
+requires-python = ">=3.11"
+
+[tool.unittest]
+start-directory = "tests"
