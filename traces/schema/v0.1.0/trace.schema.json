@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tinaxiaxiao/agent-evaluation/blob/main/traces/schema/v0.1.0/trace.schema.json",
+  "title": "Agent Trace Event",
+  "description": "One JSONL event emitted by an observable agent runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "trace_id",
+    "run_id",
+    "sequence",
+    "timestamp",
+    "event_type",
+    "component",
+    "status",
+    "duration_ms",
+    "attributes",
+    "privacy"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "event_id": {"type": "string", "minLength": 1},
+    "trace_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "run.started",
+        "input.received",
+        "speech.transcribed",
+        "intent.parsed",
+        "plan.created",
+        "state.changed",
+        "tool.call.started",
+        "tool.call.completed",
+        "tool.call.failed",
+        "confirmation.requested",
+        "confirmation.received",
+        "side_effect.started",
+        "side_effect.committed",
+        "side_effect.rejected",
+        "agent.output",
+        "run.completed",
+        "run.failed"
+      ]
+    },
+    "component": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": ["started", "success", "failed", "blocked", "cancelled", "needs_input", "recovered"]
+    },
+    "duration_ms": {"type": "integer", "minimum": 0},
+    "parent_event_id": {"type": ["string", "null"]},
+    "side_effect": {"type": "boolean"},
+    "attributes": {"type": "object"},
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "redacted"],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["public", "synthetic", "sensitive"]
+        },
+        "redacted": {"type": "boolean"}
+      }
+    }
+  }
+}
